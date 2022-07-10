@@ -62,9 +62,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="register-admin.php">
               <span data-feather="file" class="align-text-bottom"></span>
-              Orders
+              Register Admin
             </a>
           </li>
           <li class="nav-item">
