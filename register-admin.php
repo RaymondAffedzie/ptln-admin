@@ -119,9 +119,18 @@
                                             <td> <p> <?php echo $row['phone_number']; ?>    </p> </td>
                                             <td> <p> <?php echo $row['email']; ?>           </p> </td>
                                             <td> 
+                                                <form action="" method="POST">
+                                                    <input type="hidden" name="check_status_id" value="<?php echo $row['id']; ?>">
+                                                    <button type="submit" name="check_status_btn" class="btn btn-outline-warning">
+                                                    <i class="fa-solid fa-ban"></i>
+                                                    </button> 
+                                                </form>
+                                            </td>
+                                            
+                                            <td> 
                                                 <form action="registeredit.php" method="POST">
                                                     <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
-                                                    <button type="submit" name="edit_btn" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="left" title="Update User Profile">
+                                                    <button type="submit" name="edit_btn" class="btn btn-outline-info">
                                                         <i class="fa fa-edit"></i>
                                                     </button> 
                                                 </form>
