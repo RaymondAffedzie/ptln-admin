@@ -26,6 +26,15 @@
             </div>
         <?php
                 unset($_SESSION['status']);
+
+    }elseif(isset($_SESSION['neutral']) && $_SESSION['neutral'] !=''){
+
+        ?>
+            <div class="alert alert-secondary alert-dismissible fade mt-3 show" role="alert">
+                <?php echo $_SESSION['neutral'];?>
+            </div>
+        <?php
+                unset($_SESSION['neutral']);
     }
 
 ?>

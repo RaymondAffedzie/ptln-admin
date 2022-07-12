@@ -56,7 +56,7 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+            <a class="nav-link active" aria-current="page" href="index.php">
               <span data-feather="home" class="align-text-bottom"></span>
               Dashboard
             </a>
@@ -64,31 +64,31 @@
           <li class="nav-item">
             <a class="nav-link" href="register-admin.php">
               <span data-feather="file" class="align-text-bottom"></span>
-              Register Admin
+              Administrator Panel
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="events.php">
               <span data-feather="shopping-cart" class="align-text-bottom"></span>
-              Products
+              Events
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="stories.php">
               <span data-feather="users" class="align-text-bottom"></span>
-              Customers
+              Stories
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="news.php">
               <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-              Reports
+              News
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="subscriptions.php">
               <span data-feather="layers" class="align-text-bottom"></span>
-              Integrations
+              Subsrcriptions
             </a>
           </li>
         </ul>

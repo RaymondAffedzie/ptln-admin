@@ -54,6 +54,7 @@ if (isset($_POST['register'])) {
         $phone_number       = sanitize_user_input($_POST['phone_number']);
         $password           = $_POST['password'];
         $confirm_password   = $_POST['confirm_password'];
+        $status_check       = 'Active';
 
         $email_query = "SELECT email FROM admin_registration WHERE email = ?";
         $stmt_check = $connection->prepare($email_query);
@@ -66,7 +67,7 @@ if (isset($_POST['register'])) {
             $stmt_check->fetch();
             $stmt_check->close();
 
-            $_SESSION['warning'] = "This <strong>Email</strong> is registered to another user";
+            $_SESSION['warning'] = "This email is registered to another user";
             header('Location: register-admin.php');
         } else {
 
@@ -77,9 +78,9 @@ if (isset($_POST['register'])) {
 
                 $password = password_hash($password, PASSWORD_BCRYPT);
 
-                $query = "INSERT INTO admin_registration (firstname, surname, username, email, phone_number, password) VALUES (?,?,?,?,?,?)";
+                $query = "INSERT INTO admin_registration (firstname, surname, username, email, phone_number, password, check_status) VALUES (?,?,?,?,?,?,?)";
                 $stmt_insert = $connection->prepare($query);
-                $stmt_insert->bind_param("ssssss", $firstname, $surname, $username, $email, $phone_number, $password);
+                $stmt_insert->bind_param("sssssss", $firstname, $surname, $username, $email, $phone_number, $password, $status_check);
                 $stmt_insert->execute();
 
                 if ($stmt_insert->affected_rows > 0) {
@@ -95,7 +96,6 @@ if (isset($_POST['register'])) {
         $stmt_check->close();
     }
 }
-
 
 // delete admin
 if (isset($_POST['delete_admin_profile'])) {
@@ -117,7 +117,6 @@ if (isset($_POST['delete_admin_profile'])) {
     }
     $stmt_del->close();
 }
-
 
 // update other admins password
 if (isset($_POST['update-user-profile'])) {
@@ -167,9 +166,6 @@ if (isset($_POST['update-user-profile'])) {
         }
         $stmt_check->close();
     }
-} else {
-    $_SESSION['status'] = "An error occured!";
-    header("Location: register-admin.php");
 }
 
 // updating active users profile
@@ -230,7 +226,34 @@ if (isset($_POST['updateprofile'])) {
             exit();
         }
     }
-} else {
-    $_SESSION['status'] = "An error occured!";
-    header("Location: register-admin.php");
+}
+
+// block user
+if (isset($_POST['status_block'])){
+    $id = $_POST['id'];
+
+    $query = "UPDATE `admin_registration` SET `check_status` = 'Inactive' WHERE `id` = '$id' ";
+    $query_run = mysqli_query($connection, $query);
+    if($query_run){
+        $_SESSION['success'] = "Admin is blocked successfully";
+        header("Location: register-admin.php");
+    }else{
+        $_SESSION['danger'] = "Failed to block admin";
+        header("Location: register-admin.php");
+    }
+}
+
+// unblock user
+if (isset($_POST['status_unblock'])){
+    $id = $_POST['id'];
+
+    $query = "UPDATE `admin_registration` SET `check_status` = 'Active' WHERE `id` = '$id' ";
+    $query_run = mysqli_query($connection, $query);
+    if($query_run){
+        $_SESSION['success'] = "Admin is unblocked successfully";
+        header("Location: register-admin.php");
+    }else{
+        $_SESSION['danger'] = "Failed to unblock admin";
+        header("Location: register-admin.php");
+    }
 }
