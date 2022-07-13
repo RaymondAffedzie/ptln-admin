@@ -56,19 +56,30 @@ if (isset($_POST['register'])) {
         $confirm_password   = $_POST['confirm_password'];
         $status_check       = 'Active';
 
-        $email_query = "SELECT email FROM admin_registration WHERE email = ?";
-        $stmt_check = $connection->prepare($email_query);
-        $stmt_check->bind_param("s", $email);
-        $stmt_check->execute();
-        $stmt_check->store_result();
+        $email_query = "SELECT email, username FROM admin_registration WHERE email = '$email' OR username = '$username'";
+        $email_query_run = mysqli_query($connection, $email_query);
 
-        if ($stmt_check->num_rows > 0) {
-            $stmt_check->bind_result($email);
-            $stmt_check->fetch();
-            $stmt_check->close();
+        if (mysqli_num_rows($email_query_run)> 0) {
+            while($row = mysqli_fetch_array($email_query_run)){
+                $username_check = $row['username'];
+                $email_check = $row['email'];
+                $phone_number_check = $row['phone_number'];
 
-            $_SESSION['warning'] = "This email is registered to another user";
-            header('Location: register-admin.php');
+                if($username === $username_check){
+
+                    $_SESSION['warning'] = "Username is registered to another user";
+                    header('Location: register-admin.php');
+
+                }elseif ($email === $email_check){
+
+                    $_SESSION['warning'] = "E-mail is registered to another user";
+                    header('Location: register-admin.php');
+                }elseif ($phone_number === $phone_number_check){
+                    $_SESSION['warning'] = "Phone number is registered to another user";
+                    header('Location: register-admin.php');
+                }
+            }
+            
         } else {
 
             if ($password != $confirm_password) {

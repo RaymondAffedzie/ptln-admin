@@ -17,18 +17,21 @@ include('security.php');
         $query = "SELECT * FROM admin_registration WHERE email = '$email_login' OR username = '$username_login'";
         $query_run = mysqli_query($connection, $query);
 
-        if($row = mysqli_fetch_array($query_run)){
+        if(mysqli_num_rows($query_run) ===  1){
+
+            $row = mysqli_fetch_array($query_run);
             $status = $row['check_status'];
+            $db_password = $row['password'];
 
             if($status !== "Active"){
 
-                $_SESSION['warning'] = "Sorry you have been disabled!<br>Contact you senior Administrator for help.";
+                $_SESSION['warning'] = "Sorry you have been disabled!<br>Contact any senior Administrator for help.";
                 header('Location: login.php');
                 
             }else{
-                if(password_verify($password_login, $row['password'])){
+                if(password_verify($password_login, $db_password)){
                    
-                    $userspswd    =  password_verify($password_login, $row['password']);
+                    $userspswd    =  password_verify($password_login, $db_password);
                     $users_email  = $row['email'];
                     $users_id     = $row['id'];
                     $fname        = $row['firstname'];

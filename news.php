@@ -70,7 +70,7 @@ include('includes/navbar.php');
                         <tr>
                             <th scope="col">SN</th>
                             <th scope="col">Tittle</th>
-                            <th scope="col" style="width: 400px;">Content</th>
+                            <th scope="col">Content</th>
                             <th scope="col">Date</th>
                             <th scope="col">Publisher name</th>
                             <th scope="col">Source</th>
@@ -89,10 +89,10 @@ include('includes/navbar.php');
                                     <td>
                                         <p> <?php echo $counter; ?> </p>
                                     </td>
-                                    <td>
+                                    <td class="text-wrap" style="width: 100px;">
                                         <p> <?php echo $row['tittle']; ?> </p>
                                     </td>
-                                    <td>
+                                    <td class="text-wrap" style="width: 300px;">
                                         <p> <?php echo $row['content']; ?> </p>
                                     </td>
                                     <td>
