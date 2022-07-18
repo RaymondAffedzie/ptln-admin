@@ -91,7 +91,9 @@ include('includes/navbar.php');
             <div class="table-responsive">
                 <?php
                 include('alerts.php');
-                $query = "SELECT id, firstname, surname, username, phone_number, email, check_status FROM `admin_registration`"; // WHERE status = 'Moderator' AND 'Administrator'
+                $admin_id = $_SESSION['users']['users_id'];
+                // select moderators and not the current logged in admin
+                $query = "SELECT id, firstname, surname, username, phone_number, email, check_status FROM `admin_registration` WHERE status = 'Moderator' AND NOT id = $admin_id";
                 $query_run = mysqli_query($connection, $query);
 
                 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2022 at 03:35 PM
+-- Generation Time: Jul 18, 2022 at 09:14 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -49,7 +49,8 @@ INSERT INTO `admin_registration` (`id`, `firstname`, `surname`, `username`, `pho
 (2, 'Raymond', 'Affedzie', 'berth_ray', '0247692388', 'raymondaffedzie@gmail.com', '$2y$10$U7Pnn2F/Zg1Fb4SIZueLieQ2j69aS3axPNBZ3tdgME4Vhp76j8p62', 467999, 'Administrator', 'Active'),
 (3, 'Stephen', 'Mensah', 'stephy', '0553053239', 'stephenymensah@gmail.com', '$2y$10$yNjrJvHTn8b0j0NIygCyHO2BKZ.K4rtlvRI8vw53TQOV/fVq55y2W', 769504, 'Administrator', 'Active'),
 (4, 'Jane', 'Doe', 'janedoe', '0123456789', 'janedoe@email.com', '$2y$10$EUvq3w9ZIDvBgZjdoZ0HiO.B.WaRfUUnxNhVXeS5J96CDYpS0/Jxq', 0, 'Moderator', 'Active'),
-(5, 'John', 'Doe', 'john', '+0912345678', 'johndoe@email.com', '$2y$10$1JZNRTKht05m7kBxYnlH/.A9DFF5iiHlGw7KQJiW6q74920/Ulioq', 0, 'Moderator', 'Inactive');
+(5, 'John', 'Doe', 'john', '+0912345678', 'johndoe@email.com', '$2y$10$1JZNRTKht05m7kBxYnlH/.A9DFF5iiHlGw7KQJiW6q74920/Ulioq', 0, 'Moderator', 'Inactive'),
+(7, 'Klint', 'Berth', 'klint', '0251346987', 'klintberth@email.com', '$2y$10$CXg84CWnyQ5hNq7GqXayee2MV/ibI.lB4uiabQB4eiS7T7lBE7F9e', 0, 'Moderator', 'Active');
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`event_id`, `tittle`, `content`, `date`, `time`, `venue`, `town`, `country`, `info_email`, `info_contact`, `admin_id`) VALUES
-(1, 'Girls In Information Technology Training', '1. Web Development 2. Multimedia authoring (Adobe photoshop, Adobe premiere) 3. Microsoft Office Suite', '2022-07-25', '07:30:00', 'Irrba Training Center', 'Takoradi', 'Ghana', 'irrbawebsdev@gmail.com', '0205823707', 2);
+(1, 'Girls In Information Technology Training', '1. Web Development 2. Multimedia authoring (Adobe photoshop, Adobe premiere) 3. Microsoft Office Suite', '2022-07-25', '07:30:00', 'Irrba Training Center', 'Takoradi', 'Ghana', 'irrbawebsdev@gmail.com', '0205823707', 2),
+(3, 'Musical Concert', 'A musical event organized by musical groups in University of Education, Winneba. This program is meant to bring joy to the university community.', '2022-08-05', '18:30:00', 'Jophous Anamoah Conference Center', 'Winneba', 'Ghana', 'irbbawebsdev@gmail.com', '0205823707', 2);
 
 -- --------------------------------------------------------
 
@@ -110,15 +112,22 @@ CREATE TABLE `events_likes` (
 --
 
 CREATE TABLE `members` (
-  `member_id` varchar(15) NOT NULL,
-  `first_name` varchar(25) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `firstname` varchar(25) NOT NULL,
   `surname` varchar(35) NOT NULL,
   `email` varchar(65) NOT NULL,
   `phone_number` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `means_of_contact` varchar(15) NOT NULL,
-  `category_of_joining` varchar(20) NOT NULL,
   `status` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `members`
+--
+
+INSERT INTO `members` (`member_id`, `firstname`, `surname`, `email`, `phone_number`, `password`, `means_of_contact`, `status`) VALUES
+(1, 'Raymond', 'Affedzie', 'raymondaffedzie@gmail.com', '0205823707', '$2y$10$yGovB.AbEBAKD8etU3AJv.qagepsjP1S2sVfVlTHR6WPEknxSZSTW', 'email', 'Active');
 
 -- --------------------------------------------------------
 
@@ -143,18 +152,21 @@ CREATE TABLE `news` (
   `new_id` int(11) NOT NULL,
   `tittle` text NOT NULL,
   `content` longtext NOT NULL,
+  `image` varchar(250) DEFAULT NULL,
   `publisher_name` text NOT NULL,
   `admin_id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `source` varchar(500) NOT NULL
+  `source` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `news`
 --
 
-INSERT INTO `news` (`new_id`, `tittle`, `content`, `publisher_name`, `admin_id`, `date`, `source`) VALUES
-(1, '39 year Old Black Entrepreneur Makes History, Awarded $13.4 Billion Dollar Defense Contract', 'Meet Isaac Barnes, the young founder and President of Eminent Future, whose Black-owned tech firm has been awarded a $13.4 billion dollar defense contract with the U.S. Airforce and the U.S. Spaceforce.Isaac is a marvel, reminiscent of young Black leaders transcending generations of relevant and personable individuals who have made such an extraordinary mark in history.Hailing from Grand Rapids, Michigan, and growing up disadvantaged yet determined, Isaac’s saga is one recognizable, with an unfamiliar progression. After dropping out of college, he would serve piously with the US Marines, where he prospered as a software engineer and data analyst supporting the Commandant of the Marine Corps. Isaac then went on to work for the Secretary of Defense to produce federal websites and digital products that saved millions of dollars for the Department of Defense.Chris Brown Breaks Two Billboard Records With Latest ‘Breezy’ ReleaseIsaac received numerous awards and accolades for his innovations. His passion for technology and being a steward for the people led him to serve with influence under both the Obama and Trump administrations. His team led the 2017 presidential records transition efforts for President Obama.Notwithstanding his apparent success and still seeking the need to serve by leading, Isaac went on to be the first Black multi-millionaire President of a Federal Digital Product and Innovation Company, Eminent Future. Serving as the President of Eminent Future, he has been paramount in securing a defense contract worth more than $13.4 billion whilst positioning the company to be one of the fastest-growing companies in Arlington, Virginia.Isaac emphatically states, “The biggest issue that we have in America is that we are not working together as one unit; we are not combined.” Isaac combines leadership, entrepreneurship, technology, and spirituality to design growth opportunities within and between organizations and inclusive of communities to generate and instill that cohesive unity in America.On the heels of his remarkable accomplishments, Isaac, in conjunction with business partner Jose Risi established two crypto tokens, xMooney, and a stealth project. xMooney encourages its miners to reduce their carbon footprint while ensuring a more stable and secure blockchain.Now, Isaac is using his platform and resources to give back. He is a vocal advocate for diversity in tech and is working to close the black tech gap. His story inspires anyone who wants to make a difference in the world. He believes cryptocurrency and Web3 are the future, and he is creating pathways for more black and brown people to join the movement.', 'BLACK ENTERPRISE Editors', 2, '2022-07-12', 'www.blackenterprice.com');
+INSERT INTO `news` (`new_id`, `tittle`, `content`, `image`, `publisher_name`, `admin_id`, `date`, `source`) VALUES
+(1, 'Contrary to popular belief', 'Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. \r\n\r\nLorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32', 'news62d5751fc2fcd9.34375530.jpg', 'Jog Joe', 2, '2022-07-12', 'Lorem Ipsum'),
+(2, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\r\n', 'news62d571d1069620.66713739.jpg', 'Dummy Text', 2, '2022-07-13', 'Lorem Ipsum'),
+(5, 'Why do we use it?', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 'news62d5755fa367c0.53931035.jpg', 'Lorem Ipsum', 2, '2022-07-18', 'https://www.lipsum.com/');
 
 -- --------------------------------------------------------
 
@@ -208,13 +220,15 @@ INSERT INTO `password_reset` (`pwd_reset_id`, `pwd_reset_email`, `pwd_reset_toke
 --
 
 CREATE TABLE `story` (
-  `story_id` int(11) NOT NULL,
+  `story_id` varchar(250) NOT NULL,
   `tittle` text NOT NULL,
   `content` longtext NOT NULL,
+  `image` varchar(250) DEFAULT NULL,
   `date` date NOT NULL,
   `country` varchar(30) NOT NULL,
   `state` varchar(40) NOT NULL,
-  `member_id` varchar(10) NOT NULL
+  `member_id` varchar(10) NOT NULL,
+  `status` char(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -224,8 +238,8 @@ CREATE TABLE `story` (
 --
 
 CREATE TABLE `story_approval` (
-  `stapproval_id` varchar(15) NOT NULL,
-  `story_id` varchar(15) NOT NULL,
+  `stapproval_id` int(11) NOT NULL,
+  `story_id` varchar(250) NOT NULL,
   `admin_id` varchar(15) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -237,8 +251,8 @@ CREATE TABLE `story_approval` (
 --
 
 CREATE TABLE `story_comments` (
-  `stcomnt_id` varchar(15) NOT NULL,
-  `story_id` varchar(15) NOT NULL,
+  `stcomnt_id` int(11) NOT NULL,
+  `story_id` varchar(250) NOT NULL,
   `member_id` varchar(15) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -250,8 +264,8 @@ CREATE TABLE `story_comments` (
 --
 
 CREATE TABLE `story_likes` (
-  `stlike_id` varchar(15) NOT NULL,
-  `story_id` varchar(15) NOT NULL,
+  `stlike_id` int(11) NOT NULL,
+  `story_id` varchar(250) NOT NULL,
   `member_id` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -398,19 +412,25 @@ ALTER TABLE `video_library`
 -- AUTO_INCREMENT for table `admin_registration`
 --
 ALTER TABLE `admin_registration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `members`
+--
+ALTER TABLE `members`
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `new_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `new_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `password_reset`
@@ -419,26 +439,22 @@ ALTER TABLE `password_reset`
   MODIFY `pwd_reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT for table `story`
+-- AUTO_INCREMENT for table `story_approval`
 --
-ALTER TABLE `story`
-  MODIFY `story_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `story_approval`
+  MODIFY `stapproval_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `story_comments`
 --
+ALTER TABLE `story_comments`
+  MODIFY `stcomnt_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for table `news_comments`
+-- AUTO_INCREMENT for table `story_likes`
 --
-ALTER TABLE `news_comments`
-  ADD CONSTRAINT `news_comments_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `subcriptions`
---
-ALTER TABLE `subcriptions`
-  ADD CONSTRAINT `subcriptions_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `story_likes`
+  MODIFY `stlike_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -14,7 +14,7 @@ include('includes/navbar.php');
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="news-code.php" method="POST" autocomplete="off">
+                <form action="news-code.php" method="POST" enctype="multipart/form-data" autocorrect="on" autocomplete="off">
                     <input type="text" class="form-control" name="admin_id" value="<?php echo $_SESSION['users']['users_id']; ?>" hidden>
                     <div class="form-group mb-3">
                         <label for="title">Tittle</label>
@@ -31,6 +31,10 @@ include('includes/navbar.php');
                     <div class="form-group mb-3">
                         <label for="source">Source</label>
                         <input type="text" class="form-control" name="source" id="source" placeholder="url or tittle">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control" name="image" id="image" placeholder="Add image">
                     </div>
 
                     <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-outline-primary" name="add_news">Add news</button>
@@ -96,6 +100,9 @@ include('includes/navbar.php');
                                         <p> <?php echo $row['content']; ?> </p>
                                     </td>
                                     <td>
+                                        <img src="images/<?php echo $row['image']?>" width="150px" height="auto" alt="image for news">
+                                    </td>
+                                    <td>
                                         <p> <?php echo $row['date']; ?> </p>
                                     </td>
                                     <td>
@@ -123,7 +130,7 @@ include('includes/navbar.php');
                                     <td>
                                         <form action="news-code.php" method="post">
                                             <input type="hidden" name="delete_id" value="<?php echo $row['new_id']; ?>">
-                                            <button type="submit" name="delete_event" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="left" title="Delete this news" onclick="return confirm('Do you want to delete this news?')">
+                                            <button type="submit" name="delete_news" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="left" title="Delete this news" onclick="return confirm('Do you want to delete this news?')">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
                                         </form>

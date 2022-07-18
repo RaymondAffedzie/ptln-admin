@@ -24,20 +24,18 @@ include('includes/navbar.php');
                         if ($query_run) {
                             while ($row = mysqli_fetch_array($query_run)) {
                     ?>
-                                <form action="news-code.php" method="POST" autocomplete="off">
+                                <form action="news-code.php" method="POST" autocomplete="off" enctype="multipart/form-data">
                                     <input type="hidden" name="id" value="<?php echo $row['new_id'] ?>">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group mb-3">
                                                 <label for="tittle">Tittle</label>
                                                 <input type="text" class="form-control" name="tittle" value="<?php echo $row['tittle']; ?>" id="tittle">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="content">News content</label>
-                                                <input class="form-control" name="content" value="<?php echo $row['content']; ?>" id="content" autocapitalize="on" autocorrect="on">
+                                                <textarea class="form-control" name="content" id="content" rows="10" autocapitalize="on" autocorrect="on"><?php echo $row['content']; ?></textarea>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="name">Publisher Name</label>
                                                 <input type="text" class="form-control" name="name" value="<?php echo $row['publisher_name']; ?>" id="name">
@@ -46,6 +44,12 @@ include('includes/navbar.php');
                                                 <label for="source">Source</label>
                                                 <input type="text" class="form-control" name="source" value="<?php echo $row['source']; ?>" id="source">
                                             </div>
+                                            <div class="form-group mb-3">
+                                                <label for="image">Image</label>
+                                                <input type="file" class="form-control" name="image" id="image">
+                                            </div>
+                                            <img src="images/<?php echo $row['image']?>" width="150px" class="rounded-circle" alt="Image for news">
+                                            <input type="hidden" name="old_image" value="<?php echo $row['image'] ?>">
                                         </div>
                                     </div>
                                     <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-outline-primary" name="update-news">Update news</button>
