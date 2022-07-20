@@ -30,7 +30,7 @@
         }else{
             $new_password = password_hash($new_password, PASSWORD_BCRYPT);
 
-            $query = "SELECT password FROM admin_registration WHERE id='$id'";
+            $query = "SELECT `password` FROM `admin_registration` WHERE `id` = '$id'";
             $query_run = mysqli_query($connection, $query);
             if($query_run){
                 while($row = mysqli_fetch_array($query_run)){
@@ -41,7 +41,9 @@
                         $stmt_update = $connection->prepare($query_2);
                         $stmt_update->bind_param("si", $new_password, $id);
                         $stmt_update->execute();
-                        
+
+                        $email = $_SESSION['users']['users_email'];
+                        include('send-password-change-confirmation-code.php');
                         $_SESSION['success'] = "You have successfully changed your password";
                         header("location: profile.php");
                     }else{

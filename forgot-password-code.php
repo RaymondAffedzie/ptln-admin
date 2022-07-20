@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    include('control.php');
     include('config/connection.php');
 
     if(isset($_POST['code-request'])){

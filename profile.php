@@ -138,7 +138,7 @@ include('includes/navbar.php');
                                 }
                                 ?>
                             </div>
-                            <!-- edit profile modal -->
+                            <!-- change password modal -->
                             <div class="modal fade" id="editpassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">

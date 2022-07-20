@@ -6,7 +6,8 @@
      * do not open verification code;
      */
 
-    if(!isset($_SESSION['users']['users_email'])){
-        isset($_SESSION['users']['email']);
+    if(!isset($_SESSION['email'])){
+        isset($_SESSION['email']);
+        isset($_SESSION['code']);
         header("Location: forgot-password.php");
     }
